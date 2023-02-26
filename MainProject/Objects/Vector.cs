@@ -32,5 +32,14 @@ namespace MainProject.Objects
         {
             return new Vector(this.X - vector.X, this.Y - vector.Y, this.Z - vector.Z);
         }
+        public static IVector operator +(Vector a, Vector b)
+        {
+            return a.Add(b);
+        }
+
+        public static IVector operator -(Vector a, Vector b)
+        {
+            return a.Subtract(b);
+        }
     }
 }
