@@ -13,8 +13,14 @@ namespace MainProject.Objects
             Y = y;
             Z = z;
         }
+        public Vector(Point start, Point end)
+        {
+            X = end.X - start.X;
+            Y = end.Y - start.Y;
+            Z = end.Z - start.Z;
+        }
 
-        static IVector Cross(IVector left, IVector right)
+        public static IVector Cross(IVector left, IVector right)
         {
             var i = Math.Abs(left.Y * right.Z - left.Z * right.Y);
             var j = Math.Abs(left.X * right.Z - left.Z * right.X);
@@ -26,6 +32,10 @@ namespace MainProject.Objects
         public IVector Add(IVector vector)
         {
             return new Vector(this.X + vector.X, this.Y + vector.Y, this.Z + vector.Z);
+        }
+        public static float Dot(IVector left, IVector right)
+        {
+            return left.X * right.X + left.Y * right.Y + left.Z * right.Z;
         }
 
         public IVector Subtract(IVector vector)
