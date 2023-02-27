@@ -25,5 +25,9 @@ namespace MainProject.Objects
         }
 
 
+        public static Vector operator -(Point left, Point right)
+        {
+            return new Vector(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
+        }
     }
 }
