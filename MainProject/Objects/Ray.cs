@@ -13,5 +13,6 @@ namespace MainProject.Objects
             Direction = direction;
         }
 
+        public Ray() { }
     }
 }
