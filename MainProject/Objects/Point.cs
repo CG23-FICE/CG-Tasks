@@ -23,7 +23,5 @@ namespace MainProject.Objects
         {
             return new Point(point.X - vector.X, point.Y - vector.Y, point.Z - vector.Z);
         }
-
-
     }
 }

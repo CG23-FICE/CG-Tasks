@@ -2,15 +2,15 @@
 
 namespace MainProject.Objects
 {
-    public class Sphere : IBaseObject
+    public class Sphere : IIntersectable
     {
         public Point Center { get; set; }
-        public float Radius { get; set;}
+        public float Radius { get; set; }
 
-        public Sphere (Point center, float radius)
+        public Sphere(Point center, float radius)
         {
             Center = center;
-            Radius = radius;    
+            Radius = radius;
         }
 
         public bool GetIntersectionWith(Ray ray)
@@ -25,10 +25,7 @@ namespace MainProject.Objects
 
             var D = b * b - 4 * a * c;
 
-            if(D >= 0)
-                return true;
-            else
-                return false;
+            return D >= 0;
         }
     }
 }

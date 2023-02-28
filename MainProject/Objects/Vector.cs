@@ -20,6 +20,11 @@ namespace MainProject.Objects
             Z = end.Z - start.Z;
         }
 
+        public float Module()
+        {
+            return (float)Math.Sqrt(Math.Pow(X, 2) + Math.Pow(Y, 2) + Math.Pow(Z, 2));
+        }
+
         public static IVector Cross(IVector left, IVector right)
         {
             var i = Math.Abs(left.Y * right.Z - left.Z * right.Y);
@@ -28,14 +33,14 @@ namespace MainProject.Objects
 
             return new Vector(i, -j, k);
         }
+        public static float Dot(IVector left, IVector right)
+        {
+            return left.X * right.X + left.Y * right.Y + left.Z * right.Z;
+        }
 
         public IVector Add(IVector vector)
         {
             return new Vector(this.X + vector.X, this.Y + vector.Y, this.Z + vector.Z);
-        }
-        public static float Dot(IVector left, IVector right)
-        {
-            return left.X * right.X + left.Y * right.Y + left.Z * right.Z;
         }
 
         public IVector Subtract(IVector vector)
