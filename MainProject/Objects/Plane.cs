@@ -13,8 +13,10 @@ namespace MainProject.Objects
             {
                 return false;
             }
-            var intersection = Vector.Dot(Point - ray.Origin, Normal) / vectorProduct;
-            return intersection >= 0;
+
+            var arccos = Math.Acos(vectorProduct / (Normal.Module() * ray.Direction.Module()));
+
+            return arccos > 90 && arccos < 180;
         }
     }
 }

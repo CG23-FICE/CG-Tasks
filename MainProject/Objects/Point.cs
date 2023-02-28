@@ -23,11 +23,5 @@ namespace MainProject.Objects
         {
             return new Point(point.X - vector.X, point.Y - vector.Y, point.Z - vector.Z);
         }
-
-
-        public static Vector operator -(Point left, Point right)
-        {
-            return new Vector(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
-        }
     }
 }
