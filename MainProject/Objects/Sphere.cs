@@ -13,6 +13,8 @@ namespace MainProject.Objects
             Radius = radius;
         }
 
+        public Sphere() { }
+
         public bool GetIntersectionWith(Ray ray)
         {
             var RayDirect2 = Vector.Dot(ray.Direction, ray.Direction); //d2

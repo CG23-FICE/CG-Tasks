@@ -16,7 +16,7 @@ namespace MainProject.Objects
 
             var arccos = Math.Acos(vectorProduct / (Normal.Module() * ray.Direction.Module()));
 
-            return arccos > 90 && arccos < 180;
+            return arccos > Math.PI / 2 && arccos < Math.PI; //between 90 and 180 degrees
         }
     }
 }
