@@ -25,6 +25,12 @@ namespace MainProject.Objects
             return (float)Math.Sqrt(Math.Pow(X, 2) + Math.Pow(Y, 2) + Math.Pow(Z, 2));
         }
 
+        public Vector Normalize()
+        {
+            var module = Module();
+            return new Vector(X / module, Y / module, Z / module);
+        }
+
         public static IVector Cross(IVector left, IVector right)
         {
             var i = Math.Abs(left.Y * right.Z - left.Z * right.Y);
