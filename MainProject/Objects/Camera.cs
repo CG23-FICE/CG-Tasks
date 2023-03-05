@@ -6,6 +6,7 @@ namespace MainProject.Objects
     {
         public Point Position { get; set; }
         public Vector Direction { get; set; }
+        public int FieldOfView { get; set; }
 
         public Camera() { }
 
