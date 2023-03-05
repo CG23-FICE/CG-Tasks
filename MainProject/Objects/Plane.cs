@@ -6,7 +6,7 @@ namespace MainProject.Objects
     {
         public Vector Normal { get; set; }
         public Point Point { get; set; }
-        public bool GetIntersectionWith(Ray ray)
+        public bool GetIntersectionWith(Ray ray, out float distance)
         {
             var vectorProduct = Vector.Dot(Normal, ray.Direction);
             if (Math.Abs(vectorProduct) < 1e-6)
