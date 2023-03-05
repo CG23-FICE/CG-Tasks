@@ -27,21 +27,22 @@ namespace MainProject.Objects
 
             var D = b * b - 4 * a * c;
 
-            //if (D < 0)
-            //{
-            //    return null;
-            //}
+            if (D < 0)
+            {
+                return null;
+            }
 
-            //distance = 0;
-            //var distance1 = (-b - Math.Sqrt(D)) / 2;
-            //var distance2 = (-b + Math.Sqrt(D)) / 2;
-            //distance = (float)Math.Min(distance1, distance2);
+            distance = 0;
+            var distance1 = (-b - Math.Sqrt(D)) / 2;
+            var distance2 = (-b + Math.Sqrt(D)) / 2;
+            distance = (float)Math.Min(distance1, distance2);
 
-            //if (distance < 0)
-            //{
-            //    return null;
-            //}
-            //distance = ray.Origin + ray.Direction.Normalized() * distance;
+            if (distance < 0)
+            {
+                return null;
+            }
+
+            distance = ray.Origin + ray.Direction.Normalize() * distance;
 
             return D >= 0;
         }
