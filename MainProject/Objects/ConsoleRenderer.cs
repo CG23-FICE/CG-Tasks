@@ -6,9 +6,9 @@ namespace MainProject.Objects
     {
         public static void Main(int[,] pixels)
         {
-            for (int i = 0; i < Array.GetLength(0); i++)
+            for (int i = 0; i < pixels.GetLength(0); i++)
             {
-                for (int j = 0; j < Array.GetLength(1); j++)
+                for (int j = 0; j < pixels.GetLength(1); j++)
                 {
                     if (pixels[i, j] < 0)
                     {
