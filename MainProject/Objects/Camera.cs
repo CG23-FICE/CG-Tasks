@@ -8,32 +8,49 @@ namespace MainProject.Objects
         public Vector Direction { get; set; }
         public int FieldOfView { get; set; }
 
-        public Camera() { }
-
-        public Camera(Point position, Vector direction)
-        {
-            Position = position;
-            Direction = direction;
-        }
-
-        public double Distance { get; set; }
+        public float Distance { get; set; }
         public int Height = 20;
         public int Width = 20;
 
-        private Point TopLeft;
-        private Point TopRight;
-        private Point BottomLeft;
 
-        public Camera(int scaleX, int scaleY)
+        public Camera() { }
+
+        public Camera(Point position, Vector direction, int fieldOfView, float distance)
         {
-            ScaleX = scaleX;
-            ScaleY = scaleY;
-
-            TopLeft = new Point(0, Height / 2.0, Width / 2.0);
-            TopRight = new Point(0, Height / 2.0, -Width / 2.0);
-            BottomLeft = new Point(0, -Height / 2.0, Width / 2.0);
+            Position = position;
+            Direction = direction;
+            FieldOfView = fieldOfView;
+            Distance = distance;
         }
 
+        public Point[,] GetImaginaryScreen()
+        {
+            Vector rightScreenDirection = Vector.Cross(new Vector(0, 0, 1), Direction);
 
+            Vector upScreenDirection = Vector.Cross(Direction, rightScreenDirection);
+
+            var ImaginaryScreen = new Point[Width, Height];
+
+            float alpha = FieldOfView / 2;
+
+            float leftOffset = (float)Math.Tan((Math.PI / 180) * alpha) * Distance;
+            float bottomOffset = leftOffset * (Width / Height);
+
+            float horizontalDistanceBetweenPixels  = leftOffset / Width * 2;
+            float verticalDistanceBetweenPixels = bottomOffset / Height * 2;
+
+
+            Point leftBottomPoint = Position - rightScreenDirection.Scale(leftOffset) - upScreenDirection.Scale(bottomOffset);
+
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    ImaginaryScreen[x, y] = leftBottomPoint + Direction.Scale(Distance) + rightScreenDirection.Scale(x * horizontalDistanceBetweenPixels) + upScreenDirection.Scale(y * verticalDistanceBetweenPixels);
+                }
+            }
+            return ImaginaryScreen;
+
+        }
     }
 }
