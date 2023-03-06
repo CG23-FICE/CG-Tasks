@@ -4,6 +4,7 @@ namespace MainProject.Interfaces
 {
     public interface IIntersectable
     {
-        //bool GetIntersectionWith(Ray ray, out Point PointOfIntersection);
+        Point? GetIntersectionWith(Ray ray);
+        Vector GetNormalAtPoint(Point point);
     }
 }
