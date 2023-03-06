@@ -25,21 +25,21 @@ namespace MainProject.Objects
             var b = 2 * Vector.Dot(ray.Direction, new Vector(Center, ray.Origin)); // 2*d*(o-c) 
             var c = K2 - Radius2; //k2-r2
 
-            var D = b * b - 4 * a * c;
+        //    var D = b * b - 4 * a * c;
 
-            if (D < 0)
-            {
-                return null;
-            }
+        //    if (D < 0)
+        //    {
+        //        return false;
+        //    }
 
             var distance1 = (-b - Math.Sqrt(D)) / (2 );
             var distance2 = (-b + Math.Sqrt(D)) / (2 );
             var distance = (float)Math.Min(distance1, distance2);
 
-            if (distance < 0)
-            {
-                return null;
-            }
+        //    if (distance < 0)
+        //    {
+        //        return false;
+        //    }
 
             return ray.Origin + ray.Direction.Normalize().Scale(distance);
         }
