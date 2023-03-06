@@ -1,8 +1,6 @@
-﻿using MainProject.Interfaces;
-
-namespace MainProject.Objects
+﻿namespace MainProject.Objects
 {
-    public class Camera : IBaseObject
+    public class Camera
     {
         public Point Position { get; set; }
         public Vector Direction { get; set; }
@@ -36,7 +34,7 @@ namespace MainProject.Objects
             float leftOffset = (float)Math.Tan((Math.PI / 180) * alpha) * Distance;
             float bottomOffset = leftOffset * (Width / Height);
 
-            float horizontalDistanceBetweenPixels  = leftOffset / Width * 2;
+            float horizontalDistanceBetweenPixels = leftOffset / Width * 2;
             float verticalDistanceBetweenPixels = bottomOffset / Height * 2;
 
 

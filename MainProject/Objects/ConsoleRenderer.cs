@@ -1,10 +1,8 @@
-using System;
-
 namespace MainProject.Objects
 {
     class ConsoleRenderer
     {
-        public static void Main(int[,] pixels)
+        public static void Main(float[,] pixels)
         {
             for (int i = 0; i < pixels.GetLength(0); i++)
             {
@@ -33,7 +31,7 @@ namespace MainProject.Objects
                 }
                 Console.WriteLine();
             }
-     
+
         }
     }
 }

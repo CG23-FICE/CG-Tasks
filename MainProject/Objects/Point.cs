@@ -13,6 +13,7 @@ namespace MainProject.Objects
             Y = y;
             Z = z;
         }
+        public Point() { }
 
         public static Point operator +(Point point, Vector vector)
         {
