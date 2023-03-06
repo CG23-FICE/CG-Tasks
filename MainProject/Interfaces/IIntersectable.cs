@@ -4,6 +4,6 @@ namespace MainProject.Interfaces
 {
     public interface IIntersectable
     {
-        bool GetIntersectionWith(Ray ray, out float distance);
+        //bool GetIntersectionWith(Ray ray, out Point PointOfIntersection);
     }
 }
