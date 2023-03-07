@@ -16,7 +16,7 @@ Console.WriteLine("Hello, World!");
 
 //for (int i = 0; i < Array.GetLength(0); i++)
 //{
-//    for (int j = 19; j < Array.GetLength(1); j++)
+//    for (int j = 0; j < Array.GetLength(1); j++)
 //    {
 //        Console.Write("{0} {1} {2}", Array[i, j].X, Array[i, j].Y, Array[i, j].Z + "\t");
 //    }
