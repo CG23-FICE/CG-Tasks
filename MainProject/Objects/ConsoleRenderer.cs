@@ -6,6 +6,8 @@ namespace MainProject.Objects
     {
         public static void Render(float[,] pixels)
         {
+            Console.SetWindowSize(pixels.GetLength(0)+1, pixels.GetLength(0)+1);
+
             for (int i = 0; i < pixels.GetLength(0); i++)
             {
                 for (int j = 0; j < pixels.GetLength(1); j++)

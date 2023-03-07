@@ -7,8 +7,8 @@
         public int FieldOfView { get; set; }
 
         public float Distance { get; set; }
-        public int Height = 20;
-        public int Width = 20;
+        public int Height = 100;
+        public int Width = 100;
 
 
         public Camera() { }

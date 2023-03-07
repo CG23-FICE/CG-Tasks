@@ -5,7 +5,7 @@ namespace MainProject
 {
     public class Scene
     {
-        public List<IIntersectable> Figures { get; set; }
+        public List<IIntersectable> Figures { get; } = new List<IIntersectable>();
         private Vector _lightSource;
         public Vector LightSource
         {

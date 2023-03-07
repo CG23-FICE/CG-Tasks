@@ -1,16 +1,29 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using MainProject.Objects;
-
-Console.WriteLine("Hello, World!");
-
-
+using MainProject;
 
 //------Testing-------
 
-//Point center = new Point(0, 0, 0);
-//Vector direction = new Vector(1, 0, 0);
+Point center = new Point(0, 0, 0);
+Vector direction = new Vector(1, 0, 0);
 
-//Camera camera = new Camera(center, direction, 30, 1);
+Camera camera = new Camera(center, direction, 30, 2);
+
+Sphere sphere = new Sphere(new Point(5, 0, 0), 0.5f);
+
+Scene scene = new Scene()
+{
+    LightSource = new Vector(5.0f, 5.0f, 5.0f),
+    Camera = camera
+};
+scene.Figures.Add(sphere);
+
+RayTracer rayTracer = new RayTracer(scene);
+ConsoleRenderer.Render(rayTracer.TraceRays());
+
+Console.ReadLine();
+
+
 
 //Point[,] Array = camera.GetImaginaryScreen();
 
@@ -23,4 +36,4 @@ Console.WriteLine("Hello, World!");
 //    Console.WriteLine();
 //}
 
-//var val = Console.ReadLine();
+//Console.ReadLine();
