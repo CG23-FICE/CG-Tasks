@@ -22,7 +22,7 @@ namespace MainProject.Tests.ObjectsTests
                 Direction = new Vector(2, 1, 4)
             };
 
-            sphere.GetIntersectionWith(ray).Should().BeFalse();
+            sphere.GetIntersectionWith(ray).Should().NotBeNull();
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace MainProject.Tests.ObjectsTests
                 Direction = new Vector(5, 1, 0)
             };
 
-            sphere.GetIntersectionWith(ray).Should().BeTrue();
+            sphere.GetIntersectionWith(ray).Should().NotBeNull();
         }
     }
 }

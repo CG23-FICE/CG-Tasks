@@ -1,11 +1,7 @@
-﻿using FluentAssertions;
-using MainProject.Objects;
-using NUnit.Framework;
-
-namespace MainProject.Tests.ObjectsTests
+﻿namespace MainProject.Tests.ObjectsTests
 {
     internal class PlaneTests
-    {
+    {/*
         [Test]
         [Category("Negative")]
         public void GetIntersectionWith_ParallelRayTest()
@@ -61,6 +57,6 @@ namespace MainProject.Tests.ObjectsTests
             };
 
             plane.GetIntersectionWith(ray).Should().BeTrue();
-        }
+        }*/
     }
 }

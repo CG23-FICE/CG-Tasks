@@ -15,7 +15,7 @@ namespace MainProject.Objects
 
         public Sphere() { }
 
-        public bool GetIntersectionWith(Ray ray, out float distance)
+        public Point? GetIntersectionWith(Ray ray)
         {
             var RayDirect2 = Vector.Dot(ray.Direction, ray.Direction); //d2
             var Radius2 = Radius * Radius; //r2
@@ -27,23 +27,26 @@ namespace MainProject.Objects
 
             var D = b * b - 4 * a * c;
 
-            //if (D < 0)
-            //{
-            //    return null;
-            //}
+            if (D < 0)
+            {
+                return null;
+            }
 
-            //distance = 0;
-            //var distance1 = (-b - Math.Sqrt(D)) / 2;
-            //var distance2 = (-b + Math.Sqrt(D)) / 2;
-            //distance = (float)Math.Min(distance1, distance2);
+            var distance1 = (-b - Math.Sqrt(D)) / 2;
+            var distance2 = (-b + Math.Sqrt(D)) / 2;
+            var distance = (float)Math.Min(distance1, distance2);
 
-            //if (distance < 0)
-            //{
-            //    return null;
-            //}
-            //distance = ray.Origin + ray.Direction.Normalized() * distance;
+            if (distance < 0)
+            {
+                return null;
+            }
 
-            return D >= 0;
+            return ray.Origin + ray.Direction.Normalize().Scale(distance);
+        }
+
+        public Vector GetNormalAtPoint(Point point)
+        {
+            return new Vector(Center, point).Normalize();
         }
     }
 }

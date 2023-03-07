@@ -31,7 +31,13 @@ namespace MainProject.Objects
             return new Vector(X / module, Y / module, Z / module);
         }
 
-        public static IVector Cross(IVector left, IVector right)
+        public Vector Scale(float ratio)
+        {
+            return new Vector(X * ratio, Y * ratio, Z * ratio);
+        }
+
+
+        public static Vector Cross(IVector left, IVector right)
         {
             var i = Math.Abs(left.Y * right.Z - left.Z * right.Y);
             var j = Math.Abs(left.X * right.Z - left.Z * right.X);
