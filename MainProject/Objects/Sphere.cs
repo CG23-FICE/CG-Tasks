@@ -32,6 +32,7 @@ namespace MainProject.Objects
                 return null;
             }
 
+
             var distance1 = (-b - Math.Sqrt(D)) / (2 );
             var distance2 = (-b + Math.Sqrt(D)) / (2 );
             var distance = (float)Math.Min(distance1, distance2);

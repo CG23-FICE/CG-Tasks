@@ -6,9 +6,29 @@ namespace MainProject.Objects
     {
         public Vector Normal { get; set; }
         public Point Point { get; set; }
+
+        public Plane(Vector normal, Point point)
+        {
+            Normal = normal; 
+            Point = point;
+        }
+
         public Point? GetIntersectionWith(Ray ray)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            var vectorProduct = Vector.Dot(Normal.Normalize(), ray.Direction.Normalize());
+            if (Math.Abs(vectorProduct) < 1e-6) 
+            {
+                return null;
+            }
+
+            Vector difference = new Vector(ray.Origin, Point);
+            var distance = Vector.Dot(difference, Normal.Normalize()) / vectorProduct;
+            if (distance < 0)
+                return null;
+
+            return ray.Origin + ray.Direction.Normalize().Scale(distance);
+
             /*var vectorProduct = Vector.Dot(Normal, ray.Direction);
             if (Math.Abs(vectorProduct) >= 0) //90 degrees or less
             {
@@ -24,7 +44,7 @@ namespace MainProject.Objects
 
         public Vector GetNormalAtPoint(Point point)
         {
-            throw new NotImplementedException();
+            return Normal;
         }
     }
 }
