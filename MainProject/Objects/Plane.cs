@@ -6,19 +6,27 @@ namespace MainProject.Objects
     {
         public Vector Normal { get; set; }
         public Point Point { get; set; }
-        public bool GetIntersectionWith(Ray ray, out Point PointOfIntersection)
-        {
-            PointOfIntersection = new Point(0, 0, 0);
-            var vectorProduct = Vector.Dot(Normal, ray.Direction);
-            if (Math.Abs(vectorProduct) < 1e-6)
-            {
-                return false;
-            }
 
-            var arccos = Math.Acos(vectorProduct / (Normal.Module() * ray.Direction.Module()));
+        public Plane(Vector normal, Point point)
+        {
+            Normal = normal; 
+            Point = point;
+        }
+
         public Point? GetIntersectionWith(Ray ray)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            var vectorProduct = Vector.Dot(Normal.Normalize(), ray.Direction.Normalize());
+            if (Math.Abs(vectorProduct) < 0) 
+            {
+                return null;
+            }
+
+            Vector difference = new Vector(ray.Origin, Point);
+            var distance = Vector.Dot(difference, Normal.Normalize()) / vectorProduct;
+
+            return ray.Origin + ray.Direction.Normalize().Scale(distance);
+
             /*var vectorProduct = Vector.Dot(Normal, ray.Direction);
             if (Math.Abs(vectorProduct) >= 0) //90 degrees or less
             {
@@ -36,7 +44,7 @@ namespace MainProject.Objects
         }
         public Vector GetNormalAtPoint(Point point)
         {
-            throw new NotImplementedException();
+            return Normal;
         }
     }
 }
