@@ -17,13 +17,15 @@ namespace MainProject.Objects
         {
             //throw new NotImplementedException();
             var vectorProduct = Vector.Dot(Normal.Normalize(), ray.Direction.Normalize());
-            if (Math.Abs(vectorProduct) < 0) 
+            if (Math.Abs(vectorProduct) < 1e-6) 
             {
                 return null;
             }
 
             Vector difference = new Vector(ray.Origin, Point);
             var distance = Vector.Dot(difference, Normal.Normalize()) / vectorProduct;
+            if (distance < 0)
+                return null;
 
             return ray.Origin + ray.Direction.Normalize().Scale(distance);
 
@@ -40,8 +42,6 @@ namespace MainProject.Objects
             return arccos > Math.PI / 2 && arccos < Math.PI; //between 90 and 180 degrees*/
         }
 
-            return arccos > Math.PI / 2 && arccos < Math.PI; //between 90 and 180 degrees
-        }
         public Vector GetNormalAtPoint(Point point)
         {
             return Normal;

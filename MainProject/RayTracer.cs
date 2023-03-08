@@ -45,6 +45,7 @@ namespace MainProject
             if (figures == null)
                 figures = Scene.Figures;
 
+
             (IIntersectable figure, float nearestPointDistance) nearestFigure = (figures.First(), float.MaxValue);
 
             Point[,] projectionPlane = Scene.Camera.GetImaginaryScreen();

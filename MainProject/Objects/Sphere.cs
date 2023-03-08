@@ -25,12 +25,11 @@ namespace MainProject.Objects
             var b = 2 * Vector.Dot(ray.Direction, new Vector(Center, ray.Origin)); // 2*d*(o-c) 
             var c = K2 - Radius2; //k2-r2
 
-        //    var D = b * b - 4 * a * c;
+            var D = b * b - 4 * a * c;
 
-            PointOfIntersection = new Point(0, 0, 0);
             if (D < 0)
             {
-                return false;
+                return null;
             }
 
 
@@ -40,7 +39,7 @@ namespace MainProject.Objects
 
             if (distance < 0)
             {
-                return false;
+                return null;
             }
 
             return ray.Origin + ray.Direction.Normalize().Scale(distance);
