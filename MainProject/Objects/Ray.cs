@@ -13,6 +13,12 @@ namespace MainProject.Objects
             Direction = direction;
         }
 
+        public Ray(Point origin, Point direction)
+        {
+            Origin = origin;
+            Direction = new Vector(origin, direction);
+        }
+
         public Ray() { }
     }
 }
