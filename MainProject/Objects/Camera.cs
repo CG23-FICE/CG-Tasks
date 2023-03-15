@@ -23,9 +23,9 @@
 
         public Point[,] GetImaginaryScreen()
         {
-            Vector rightScreenDirection = Vector.Cross(new Vector(0, 0, 1), Direction);
+            Vector rightScreenDirection = Vector.Cross(new Vector(0, 0, 1), Direction).Normalize();
 
-            Vector upScreenDirection = Vector.Cross(Direction, rightScreenDirection);
+            Vector upScreenDirection = Vector.Cross(Direction, rightScreenDirection).Normalize();
 
             var ImaginaryScreen = new Point[Width, Height];
 

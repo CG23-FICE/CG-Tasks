@@ -5,26 +5,26 @@ using MainProject;
 //------Testing-------
 
 Point center = new Point(0, 0, 0);
-Vector direction = new Vector(1, 0, 0);
+Vector direction = new Vector(1, 0, 0).Normalize();
 
 Camera camera = new Camera(center, direction, 30, 2);
 
-Sphere sphere1 = new Sphere(new Point(5, 0, 0), 0.7f);
+Sphere sphere1 = new Sphere(new Point(5, -0.2f, 0.5f), 0.3f);
 Sphere sphere2 = new Sphere(new Point(3, 0, 0), 0.3f);
 Plane plane1 = new Plane(new Vector(1, 1, 1).Normalize(), new Point(44, 44, 44));
 Plane plane2 = new Plane(new Vector(1, 0.5f, 0).Normalize(), new Point(0, 0, 0));
 
 Scene scene = new Scene()
 {
-    LightSource = new Vector(5.0f, 55.0f, 5.0f),
+    LightSource = new Vector(5.0f, 55.0f, 5.0f).Normalize(),
     Camera = camera
 };
-scene.Figures.Add(sphere1);
 scene.Figures.Add(sphere2);
-scene.Figures.Add(plane1);
+scene.Figures.Add(sphere1);
+//scene.Figures.Add(plane1);
 
 RayTracer rayTracer = new RayTracer(scene);
-ConsoleRenderer.Render(rayTracer.TraceRaysNearestFigure());
+ConsoleRenderer.Render(rayTracer.TraceRays());
 
 Console.ReadLine();
 

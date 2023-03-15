@@ -16,7 +16,7 @@ namespace MainProject.Objects
         public Ray(Point origin, Point direction)
         {
             Origin = origin;
-            Direction = new Vector(origin, direction);
+            Direction = new Vector(origin, direction).Normalize();
         }
 
         public Ray() { }
