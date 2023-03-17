@@ -1,7 +1,6 @@
 ﻿using MainProject.Interfaces;
 using MainProject.Objects;
 
-
 namespace MainProject
 {
     public class RayTracer
@@ -38,6 +37,11 @@ namespace MainProject
                 }
             }
             return pixels;
+        }
+
+        public (IIntersectable figure, Point intersectionPoint) GetNearestIntersection(Ray ray, List<IIntersectable> figures)
+        {
+            return (null, null);
         }
     }
 }

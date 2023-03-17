@@ -5,9 +5,9 @@ namespace MainProject.Objects
     public class Ray : IBaseObject
     {
         public Point Origin { get; set; }
-        public Vector Direction { get; set; }
+        public Normal Direction { get; set; }
 
-        public Ray(Point origin, Vector direction)
+        public Ray(Point origin, Normal direction)
         {
             Origin = origin;
             Direction = direction;
@@ -16,7 +16,7 @@ namespace MainProject.Objects
         public Ray(Point origin, Point direction)
         {
             Origin = origin;
-            Direction = new Vector(origin, direction).Normalize();
+            Direction = new Normal(origin, direction);
         }
 
         public Ray() { }

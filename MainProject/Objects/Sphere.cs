@@ -19,7 +19,7 @@ namespace MainProject.Objects
         {
             var RayDirect2 = Vector.Dot(ray.Direction, ray.Direction); //d2
             var Radius2 = Radius * Radius; //r2
-            var K2 = Vector.Dot(new Vector( Center, ray.Origin), new Vector(Center, ray.Origin)); //(o-c)2
+            var K2 = Vector.Dot(new Vector(Center, ray.Origin), new Vector(Center, ray.Origin)); //(o-c)2
 
             var a = RayDirect2;
             var b = 2 * Vector.Dot(ray.Direction, new Vector(Center, ray.Origin)); // 2*d*(o-c) 
@@ -33,8 +33,8 @@ namespace MainProject.Objects
             }
 
 
-            var distance1 = (-b - Math.Sqrt(D)) / (2 );
-            var distance2 = (-b + Math.Sqrt(D)) / (2 );
+            var distance1 = (-b - Math.Sqrt(D)) / (2);
+            var distance2 = (-b + Math.Sqrt(D)) / (2);
             var distance = (float)Math.Min(distance1, distance2);
 
             if (distance < 0)
@@ -42,12 +42,12 @@ namespace MainProject.Objects
                 return null;
             }
 
-            return ray.Origin + ray.Direction.Normalize().Scale(distance);
+            return ray.Origin + ray.Direction.Scale(distance);
         }
 
         public Vector GetNormalAtPoint(Point point)
         {
-            return new Vector(Center, point).Normalize();
+            return new Normal(Center, point);
         }
     }
 }

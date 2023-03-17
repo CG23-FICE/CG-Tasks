@@ -4,30 +4,30 @@ namespace MainProject.Objects
 {
     public class Plane : IIntersectable
     {
-        public Vector Normal { get; set; }
+        public Normal Normal { get; set; }
         public Point Point { get; set; }
 
-        public Plane(Vector normal, Point point)
+        public Plane(Normal normal, Point point)
         {
-            Normal = normal; 
+            Normal = normal;
             Point = point;
         }
 
         public Point? GetIntersectionWith(Ray ray)
         {
             //throw new NotImplementedException();
-            var vectorProduct = Vector.Dot(Normal.Normalize(), ray.Direction.Normalize());
-            if (Math.Abs(vectorProduct) < 1e-6) 
+            var vectorProduct = Vector.Dot(Normal, ray.Direction);
+            if (Math.Abs(vectorProduct) < 1e-6)
             {
                 return null;
             }
 
-            Vector difference = new Vector(ray.Origin, Point);
-            var distance = Vector.Dot(difference, Normal.Normalize()) / vectorProduct;
+            Normal difference = new Normal(ray.Origin, Point);
+            var distance = Vector.Dot(difference, Normal) / vectorProduct;
             if (distance < 0)
                 return null;
 
-            return ray.Origin + ray.Direction.Normalize().Scale(distance);
+            return ray.Origin + ray.Direction.Scale(distance);
 
             /*var vectorProduct = Vector.Dot(Normal, ray.Direction);
             if (Math.Abs(vectorProduct) >= 0) //90 degrees or less

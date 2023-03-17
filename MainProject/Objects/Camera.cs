@@ -3,7 +3,7 @@
     public class Camera
     {
         public Point Position { get; set; }
-        public Vector Direction { get; set; }
+        public Normal Direction { get; set; }
         public int FieldOfView { get; set; }
 
         public float Distance { get; set; }
@@ -13,7 +13,7 @@
 
         public Camera() { }
 
-        public Camera(Point position, Vector direction, int fieldOfView, float distance)
+        public Camera(Point position, Normal direction, int fieldOfView, float distance)
         {
             Position = position;
             Direction = direction;

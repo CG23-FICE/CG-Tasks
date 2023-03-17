@@ -11,12 +11,12 @@ namespace MainProject.Tests.ObjectsTests
         [Category("Negative")]
         public void GetIntersectionWith_ParallelRayTest()
         {
-            var plane = new Plane(new Vector(1, 2, 0), new Point(0, 0, 0));
+            var plane = new Plane(new Normal(1, 2, 0), new Point(0, 0, 0));
 
             var ray = new Ray
             {
                 Origin = new Point(0, 0, 0),
-                Direction = new Vector(-2, 1, 0)
+                Direction = new Normal(-2, 1, 0)
             };
 
             plane.GetIntersectionWith(ray).Should().BeNull();
@@ -42,13 +42,13 @@ namespace MainProject.Tests.ObjectsTests
         [Category("Positive")]
         public void GetIntersectionWith_IntersectionTest()
         {
-            var plane = new Plane(new Vector(3, -1, 4), new Point(0, 0, 0));
+            var plane = new Plane(new Normal(3, -1, 4), new Point(0, 0, 0));
 
 
             var ray = new Ray
             {
                 Origin = new Point(0, 0, 0),
-                Direction = new Vector(-2, 3, 1)
+                Direction = new Normal(-2, 3, 1)
             };
 
             plane.GetIntersectionWith(ray).Should().NotBeNull();
