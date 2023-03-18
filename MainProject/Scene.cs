@@ -6,8 +6,8 @@ namespace MainProject
     public class Scene
     {
         public List<IIntersectable> Figures { get; } = new List<IIntersectable>();
-        private Vector _lightSource;
-        public Vector LightSource
+        private Normal _lightSource;
+        public Normal LightSource
         {
             get
             {
@@ -15,7 +15,7 @@ namespace MainProject
             }
             set
             {
-                _lightSource = value.Normalize();
+                _lightSource = value;
             }
         }
         public Camera Camera { get; set; }

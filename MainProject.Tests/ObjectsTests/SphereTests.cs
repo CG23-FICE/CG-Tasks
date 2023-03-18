@@ -19,7 +19,7 @@ namespace MainProject.Tests.ObjectsTests
             var ray = new Ray
             {
                 Origin = new Point(0, 0, 0),
-                Direction = new Vector(2, 1, 4)
+                Direction = new Normal(2, 1, 4)
             };
 
             sphere.GetIntersectionWith(ray).Should().BeNull();
@@ -38,7 +38,7 @@ namespace MainProject.Tests.ObjectsTests
             var ray = new Ray
             {
                 Origin = new Point(0, 0, 0),
-                Direction = new Vector(5, 1, 0)
+                Direction = new Normal(5, 1, 0)
             };
 
             sphere.GetIntersectionWith(ray).Should().NotBeNull();

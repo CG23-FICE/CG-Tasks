@@ -1,22 +1,22 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using MainProject.Objects;
 using MainProject;
+using MainProject.Objects;
 
 //------Testing-------
 
 Point center = new Point(0, 0, 0);
-Vector direction = new Vector(1, 0, 0).Normalize();
+Normal direction = new Normal(1, 0, 0);
 
 Camera camera = new Camera(center, direction, 30, 2);
 
 Sphere sphere1 = new Sphere(new Point(5, -0.2f, 0.5f), 0.3f);
-Sphere sphere2 = new Sphere(new Point(3, 0, 0), 0.3f);
-Plane plane1 = new Plane(new Vector(1, 1, 1).Normalize(), new Point(44, 44, 44));
-Plane plane2 = new Plane(new Vector(1, 0.5f, 0).Normalize(), new Point(0, 0, 0));
+Sphere sphere2 = new Sphere(new Point(4, 0, 0), 0.3f);
+Plane plane1 = new Plane(new Normal(1, 1, 1), new Point(44, 44, 44));
+Plane plane2 = new Plane(new Normal(1, 0.5f, 0), new Point(0, 0, 0));
 
 Scene scene = new Scene()
 {
-    LightSource = new Vector(5.0f, 55.0f, 5.0f).Normalize(),
+    LightSource = new Normal(5.0f, 55.0f, 5.0f),
     Camera = camera
 };
 scene.Figures.Add(sphere2);
