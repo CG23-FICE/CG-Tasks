@@ -31,7 +31,7 @@ namespace MainProject.Utils
             return pluginsLists;
         }
 
-        public static List<IImageWriter> GetAvailableReaders()
+        public static List<IImageReader> GetAvailableReaders()
         {
             var pluginsLists = new List<IImageReader>();
             // 1- Read the dll files from the extensions folder
