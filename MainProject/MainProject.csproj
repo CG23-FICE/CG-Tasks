@@ -11,4 +11,13 @@
     <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ImageConverter.Sdk\ImageConverter.Sdk.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Readers\" />
+    <Folder Include="Writers\" />
+  </ItemGroup>
+
 </Project>
