@@ -4,6 +4,9 @@
     {
         string Title { get; }
         string Description { get; }
+        /// <summary>
+        /// Write name in ".ext" format
+        /// </summary>
         string FormatName { get; }
     }
 }
