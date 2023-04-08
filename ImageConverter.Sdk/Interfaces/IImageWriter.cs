@@ -1,7 +1,9 @@
-﻿namespace ImageConverter.Sdk.Interfaces
+﻿using ImageConverter.Sdk.Models;
+
+namespace ImageConverter.Sdk.Interfaces
 {
     public interface IImageWriter : IBaseImageFormater
     {
-        void Write(string path);
+        void Write(Bitmap bitmap, string path);
     }
 }

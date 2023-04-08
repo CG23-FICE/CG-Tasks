@@ -5,9 +5,9 @@ namespace MainProject.Factories
 {
     public class ReaderFactory
     {
-        public IImageReader GetReader(string formatName)
+        public static IImageWriter GetReader(string formatName)
         {
-            var readers = PluginsReader.GetAvailableReaders();
+            var readers = PluginsReader.GetReaderPlugins();
 
             var requestedReader = readers.FirstOrDefault(reader => reader.FormatName == formatName);
 

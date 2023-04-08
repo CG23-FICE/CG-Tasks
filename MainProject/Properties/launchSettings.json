@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MainProject": {
+      "commandName": "Project",
+      "commandLineArgs": "--source=C:Images/image.jpg --output=kek --goal-format=.png"
+    }
+  }
+}

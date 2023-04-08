@@ -7,7 +7,7 @@ namespace MainProject.Factories
     {
         public IImageWriter GetWriter(string formatName)
         {
-            var writers = PluginsReader.GetAvailableWriters();
+            var writers = PluginsReader.GetWriterPlugins();
 
             var requestedWriter = writers.FirstOrDefault(writer => writer.FormatName == formatName);
 

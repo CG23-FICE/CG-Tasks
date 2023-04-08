@@ -1,7 +1,9 @@
-﻿namespace ImageConverter.Sdk.Interfaces
+﻿using ImageConverter.Sdk.Models;
+
+namespace ImageConverter.Sdk.Interfaces
 {
     public interface IImageReader : IBaseImageFormater
     {
-        byte[] Read(Stream stream);
+        Bitmap Read(Stream stream);
     }
 }
