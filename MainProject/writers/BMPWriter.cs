@@ -24,7 +24,7 @@ namespace MainProject.Writers
 
             var header = new BMPHeader()
             {
-                Id = Convert.ToByte("BM"),
+                Id = 0x4D42, //Convert.ToByte("BM"),
                 Reserved = 0,
                 FileSize = fileSize,
                 HeaderSize = 54,

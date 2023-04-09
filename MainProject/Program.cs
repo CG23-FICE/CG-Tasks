@@ -8,6 +8,7 @@ internal class Program
         var imageInfo = ArgumentsReader(args);
         var imageReader = ReaderFactory.GetReader(imageInfo.Image);
         var imageWriter = WriterFactory.GetWriter(imageInfo.GoalFormat);
+        imageWriter.Write(imageReader.Read(imageInfo.Image.OpenRead()), imageInfo.OutputDirectoryPath);
     }
 
     private static ArgumentReaderResponse ArgumentsReader(string[] args)
