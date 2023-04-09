@@ -1,14 +1,13 @@
-﻿using ImageConverter.Sdk.Interfaces;
+﻿using MainProject.Factories;
 using MainProject.Models.ImagePluginsModels;
-using MainProject.Utils;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
         var imageInfo = ArgumentsReader(args);
-        var imageReader = ChooseImageReader(imageInfo.Image);
-        var imageWriter = ChooseImageWriter(imageInfo.GoalFormat);
+        var imageReader = ReaderFactory.GetReader(imageInfo.Image);
+        var imageWriter = WriterFactory.GetWriter(imageInfo.GoalFormat);
     }
 
     private static ArgumentReaderResponse ArgumentsReader(string[] args)
@@ -52,34 +51,5 @@ internal class Program
         }
 
         return response;
-    }
-
-    private static IImageWriter ChooseImageReader(FileInfo image)
-    {
-        var extension = image.Extension;
-        var availableReaders = PluginsReader.GetAllAvailableReaders();
-
-        var reader = availableReaders.FirstOrDefault(reader => reader.FormatName.ToLower() == extension.ToLower());
-
-        if (reader == null)
-        {
-            throw new Exception($"Current format {extension} is not supported.");
-        }
-
-        return reader;
-    }
-
-    private static IImageWriter ChooseImageWriter(string goalFormat)
-    {
-        var availableWriters = PluginsReader.GetAllAvailableWriters();
-
-        var writer = availableWriters.FirstOrDefault(reader => reader.FormatName.ToLower() == goalFormat.ToLower());
-
-        if (writer == null)
-        {
-            throw new Exception($"Current format {goalFormat} is not supported.");
-        }
-
-        return writer;
     }
 }

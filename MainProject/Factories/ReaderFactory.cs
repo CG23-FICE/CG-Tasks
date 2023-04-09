@@ -5,11 +5,11 @@ namespace MainProject.Factories
 {
     public class ReaderFactory
     {
-        public static IImageWriter GetReader(string formatName)
+        public static IImageReader GetReader(string goalFormat)
         {
-            var readers = PluginsReader.GetReaderPlugins();
+            var readers = PluginsReader.GetAllAvailableReaders();
 
-            var requestedReader = readers.FirstOrDefault(reader => reader.FormatName == formatName);
+            var requestedReader = readers.FirstOrDefault(reader => reader.FormatName.ToLower() == goalFormat.ToLower());
 
             if (requestedReader is null)
             {
@@ -17,6 +17,11 @@ namespace MainProject.Factories
             }
 
             return requestedReader;
+        }
+
+        public static IImageReader GetReader(FileInfo image)
+        {
+            return GetReader(image.Extension);
         }
     }
 }

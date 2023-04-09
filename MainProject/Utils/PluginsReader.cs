@@ -5,38 +5,48 @@ namespace MainProject.Utils
 {
     public class PluginsReader
     {
-        static string workingDirectory = Environment.CurrentDirectory;
-        static string projectDirectory = Directory.GetParent(workingDirectory)!.Parent!.Parent!.FullName;
-        static string pathToPlugins = Path.Combine(projectDirectory, "Plugins");
+        static string _workingDirectory = Environment.CurrentDirectory;
+        static string _projectDirectory = Directory.GetParent(_workingDirectory)!.Parent!.Parent!.FullName;
+        static string _pathToPlugins = Path.Combine(_projectDirectory, "Plugins");
+        static string _pathToReaders = Path.Combine(_projectDirectory, "Readers");
+        static string _pathToWriters = Path.Combine(_projectDirectory, "Writers");
 
         public static List<IImageWriter> GetAllAvailableWriters()
         {
             var writers = GetWriterPlugins();
-            return writers;
+            return writers.Concat(GetOurWriters()).ToList();
         }
 
         public static List<IImageWriter> GetOurWriters()
         {
-            throw new NotImplementedException();
+            var pluginsLists = new List<IImageWriter>();
+
+            var assembly = Assembly.LoadFile(Path.Combine(_workingDirectory, "MainProject.dll"));
+
+            var pluginTypes = assembly.GetTypes().Where(t => typeof(IImageWriter).IsAssignableFrom(t) && !t.IsInterface).ToArray();
+
+            foreach (var pluginType in pluginTypes)
+            {
+                var pluginInstance = Activator.CreateInstance(pluginType) as IImageWriter;
+                pluginsLists.Add(pluginInstance);
+            }
+
+            return pluginsLists;
         }
         public static List<IImageWriter> GetWriterPlugins()
         {
             var pluginsLists = new List<IImageWriter>();
-            // 1- Read the dll files from the extensions folder
 
-            var plugins = Directory.GetFiles(pathToPlugins, "*.dll");
+            var plugins = Directory.GetFiles(_pathToPlugins, "*.dll");
 
-            // 2- Read the assembly from files 
             foreach (var plugin in plugins)
             {
                 var assembly = Assembly.LoadFile(Path.Combine(Directory.GetCurrentDirectory(), plugin));
 
-                // 3- Exteract all the types that implements IPlugin 
                 var pluginTypes = assembly.GetTypes().Where(t => typeof(IImageWriter).IsAssignableFrom(t) && !t.IsInterface).ToArray();
 
                 foreach (var pluginType in pluginTypes)
                 {
-                    // 4- Create an instance from the extracted type 
                     var pluginInstance = Activator.CreateInstance(pluginType) as IImageWriter;
                     pluginsLists.Add(pluginInstance);
                 }
@@ -45,35 +55,44 @@ namespace MainProject.Utils
             return pluginsLists;
         }
 
-        public static List<IImageWriter> GetAllAvailableReaders()
+        public static List<IImageReader> GetAllAvailableReaders()
         {
             var readers = GetReaderPlugins();
-            return readers;
+            return readers.Concat(GetOurReaders()).ToList();
         }
 
-        public static List<IImageWriter> GetOurReaders()
+        public static List<IImageReader> GetOurReaders()
         {
-            throw new NotImplementedException();
+            var pluginsLists = new List<IImageReader>();
+
+            var assembly = Assembly.LoadFile(Path.Combine(_workingDirectory, "MainProject.dll"));
+
+            var pluginTypes = assembly.GetTypes().Where(t => typeof(IImageReader).IsAssignableFrom(t) && !t.IsInterface).ToArray();
+
+            foreach (var pluginType in pluginTypes)
+            {
+                var pluginInstance = Activator.CreateInstance(pluginType) as IImageReader;
+                pluginsLists.Add(pluginInstance);
+            }
+
+            return pluginsLists;
         }
 
-        public static List<IImageWriter> GetReaderPlugins()
+        public static List<IImageReader> GetReaderPlugins()
         {
-            var pluginsLists = new List<IImageWriter>();
-            // 1- Read the dll files from the extensions folder
-            var plugins = Directory.GetFiles(pathToPlugins, "*.dll");
+            var pluginsLists = new List<IImageReader>();
 
-            // 2- Read the assembly from files 
+            var plugins = Directory.GetFiles(_pathToPlugins, "*.dll");
+
             foreach (var plugin in plugins)
             {
                 var assembly = Assembly.LoadFile(Path.Combine(Directory.GetCurrentDirectory(), plugin));
 
-                // 3- Exteract all the types that implements IPlugin 
-                var pluginTypes = assembly.GetTypes().Where(t => typeof(IImageWriter).IsAssignableFrom(t) && !t.IsInterface).ToArray();
+                var pluginTypes = assembly.GetTypes().Where(t => typeof(IImageReader).IsAssignableFrom(t) && !t.IsInterface).ToArray();
 
                 foreach (var pluginType in pluginTypes)
                 {
-                    // 4- Create an instance from the extracted type 
-                    var pluginInstance = Activator.CreateInstance(pluginType) as IImageWriter;
+                    var pluginInstance = Activator.CreateInstance(pluginType) as IImageReader;
                     pluginsLists.Add(pluginInstance);
                 }
             }
