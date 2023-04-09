@@ -15,9 +15,4 @@
     <ProjectReference Include="..\ImageConverter.Sdk\ImageConverter.Sdk.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Readers\" />
-    <Folder Include="Writers\" />
-  </ItemGroup>
-
 </Project>
