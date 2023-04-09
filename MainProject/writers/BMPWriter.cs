@@ -10,9 +10,9 @@ namespace MainProject.Writers
 {
     public class BMPWriter : IImageWriter
     {
-        public string Title => "Kek";
+        public string Title => "BMP";
 
-        public string Description => "kok";
+        public string Description => "BMP format writer";
 
         public string FormatName => ".bmp";
 
@@ -22,7 +22,7 @@ namespace MainProject.Writers
             uint imageSize = bitmap.Width * bitmap.Height * 3 + rowPadding * bitmap.Height;
             uint fileSize = imageSize + 54;
 
-            var header = new BMPHeader()
+            BMPHeader header = new BMPHeader()
             {
                 Id = 0x4D42, //Convert.ToByte("BM"),
                 Reserved = 0,
@@ -44,6 +44,25 @@ namespace MainProject.Writers
 
             using FileStream stream = new FileStream(path, FileMode.Create);
             using BinaryWriter writer = new BinaryWriter(stream);
+            AddHeader(header, writer);
+
+            for (uint y = 0; y < header.Height; y++)
+            {
+                for (uint x = 0; x < header.Width; x++)
+                {
+                    writer.Write((byte)bitmap[y, x].R);
+                    writer.Write((byte)bitmap[y, x].G);
+                    writer.Write((byte)bitmap[y, x].B);
+                }
+                for (int j = 0; j < rowPadding; j++)
+                {
+                    writer.Write(Convert.ToByte(0));
+                }
+            }
+        }
+
+        private void AddHeader(BMPHeader header, BinaryWriter writer)
+        {
             writer.Write(header.Id);
             writer.Write(header.FileSize);
             writer.Write(header.Reserved);
@@ -59,19 +78,6 @@ namespace MainProject.Writers
             writer.Write(header.YPixelsPerMeter);
             writer.Write(header.ColorsUsed);
             writer.Write(header.ColorsImportant);
-            for (uint y = 0; y < header.Height; y++)
-            {
-                for (uint x = 0; x < header.Width; x++)
-                {
-                    writer.Write((byte)bitmap[y, x].R);
-                    writer.Write((byte)bitmap[y, x].G);
-                    writer.Write((byte)bitmap[y, x].B);
-                }
-                for (int j = 0; j < rowPadding; j++)
-                {
-                    writer.Write(Convert.ToByte(0));
-                }
-            }
         }
     }
 }

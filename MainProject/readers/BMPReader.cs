@@ -11,9 +11,9 @@ namespace MainProject.Readers
 {
     public class BMPReader : IImageReader
     {
-        public string Title => "Kek";
+        public string Title => "BMP";
 
-        public string Description => "kok";
+        public string Description => "BMP format reader";
 
         public string FormatName => ".bmp";
 
@@ -44,13 +44,15 @@ namespace MainProject.Readers
             reader.ReadBytes(colorTableSize);
             var bitmap = new Bitmap(Header.Height, Header.Width);
 
+
+            //Reading all bytes and put into Pixel array
             for (uint y = 0; y < Header.Height; y++)
             {
                 for (uint x = 0; x < Header.Width; x++)
                 {
                     bitmap[y, x] = new Pixel(reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
                 }
-                reader.ReadBytes(rowPadding);
+                reader.ReadBytes(rowPadding); //consider padding (specific of bmp format)
             }
 
             return bitmap;
