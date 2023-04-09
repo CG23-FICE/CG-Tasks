@@ -11,11 +11,11 @@ namespace MainProject.Readers
 {
     public class BMPReader : IImageReader
     {
-        public string Title => throw new NotImplementedException();
+        public string Title => "Kek";
 
-        public string Description => throw new NotImplementedException();
+        public string Description => "kok";
 
-        public string FormatName => throw new NotImplementedException();
+        public string FormatName => ".bmp";
 
         public Bitmap Read(Stream stream)
         {

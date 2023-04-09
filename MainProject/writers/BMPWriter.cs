@@ -10,11 +10,11 @@ namespace MainProject.Writers
 {
     public class BMPWriter : IImageWriter
     {
-        public string Title => throw new NotImplementedException();
+        public string Title => "Kek";
 
-        public string Description => throw new NotImplementedException();
+        public string Description => "kok";
 
-        public string FormatName => throw new NotImplementedException();
+        public string FormatName => ".bmp";
 
         public void Write(Bitmap bitmap, string path)
         {
