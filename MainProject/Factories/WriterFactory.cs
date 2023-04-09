@@ -5,11 +5,11 @@ namespace MainProject.Factories
 {
     public class WriterFactory
     {
-        public IImageWriter GetWriter(string formatName)
+        public static IImageWriter GetWriter(string goalFormat)
         {
-            var writers = PluginsReader.GetWriterPlugins();
+            var writers = PluginsReader.GetAllAvailableWriters();
 
-            var requestedWriter = writers.FirstOrDefault(writer => writer.FormatName == formatName);
+            var requestedWriter = writers.FirstOrDefault(writer => writer.FormatName.ToLower() == goalFormat.ToLower());
 
             if (requestedWriter is null)
             {

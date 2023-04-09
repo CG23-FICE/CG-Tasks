@@ -16,16 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Readers\" />
     <Folder Include="Writers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

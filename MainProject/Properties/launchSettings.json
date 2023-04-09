@@ -2,7 +2,7 @@
   "profiles": {
     "MainProject": {
       "commandName": "Project",
-      "commandLineArgs": "--source=C:Images/image.jpg --output=kek --goal-format=.png"
+      "commandLineArgs": "--source=C:Images/image.png --output=kek --goal-format=.jpg"
     }
   }
 }
