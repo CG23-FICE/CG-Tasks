@@ -1,4 +1,6 @@
 ﻿using FluentAssertions;
+using MainProject.Models.Basics;
+using MainProject.Models.Shapes;
 using MainProject.Objects;
 using NUnit.Framework;
 

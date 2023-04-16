@@ -1,6 +1,7 @@
 ﻿using MainProject.Interfaces;
+using MainProject.Models.Basics;
 
-namespace MainProject.Objects
+namespace MainProject.Models.Shapes
 {
     public class Plane : IIntersectable
     {

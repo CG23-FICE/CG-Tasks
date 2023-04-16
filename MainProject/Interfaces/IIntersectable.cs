@@ -1,4 +1,4 @@
-﻿using MainProject.Objects;
+﻿using MainProject.Models.Basics;
 
 namespace MainProject.Interfaces
 {

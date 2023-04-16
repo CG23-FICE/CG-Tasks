@@ -1,6 +1,6 @@
 ﻿using MainProject.Interfaces;
 
-namespace MainProject.Objects
+namespace MainProject.Models.Basics
 {
     public class Vector : IVector
     {
@@ -53,12 +53,12 @@ namespace MainProject.Objects
 
         public IVector Add(IVector vector)
         {
-            return new Vector(this.X + vector.X, this.Y + vector.Y, this.Z + vector.Z);
+            return new Vector(X + vector.X, Y + vector.Y, Z + vector.Z);
         }
 
         public IVector Subtract(IVector vector)
         {
-            return new Vector(this.X - vector.X, this.Y - vector.Y, this.Z - vector.Z);
+            return new Vector(X - vector.X, Y - vector.Y, Z - vector.Z);
         }
         public static IVector operator +(Vector a, Vector b)
         {

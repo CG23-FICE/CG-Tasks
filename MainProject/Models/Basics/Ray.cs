@@ -1,6 +1,6 @@
 ﻿using MainProject.Interfaces;
 
-namespace MainProject.Objects
+namespace MainProject.Models.Basics
 {
     public class Ray : IBaseObject
     {

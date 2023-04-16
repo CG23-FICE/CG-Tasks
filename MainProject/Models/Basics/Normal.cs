@@ -1,4 +1,4 @@
-﻿namespace MainProject.Objects
+﻿namespace MainProject.Models.Basics
 {
     public class Normal : Vector
     {

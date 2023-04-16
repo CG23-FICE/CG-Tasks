@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
-using MainProject.Objects;
+using MainProject.Models.Basics;
+using MainProject.Models.Shapes;
 using NUnit.Framework;
 
 namespace MainProject.Tests.ObjectsTests
