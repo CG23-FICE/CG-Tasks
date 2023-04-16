@@ -20,5 +20,12 @@ namespace MainProject.Models.Basics
         }
 
         public Ray() { }
+        public Point GetPointAtDistance(float distance)
+        {
+            return new Point(
+                Origin.X + Direction.X * distance,
+                Origin.Y + Direction.Y * distance,
+                Origin.Z + Direction.Z * distance);
+        }
     }
 }
