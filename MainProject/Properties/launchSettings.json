@@ -2,7 +2,7 @@
   "profiles": {
     "MainProject": {
       "commandName": "Project",
-      "commandLineArgs": "--source=C:Images/image.png --output=kek --goal-format=.jpg"
+      "commandLineArgs": "--source=D://Studying//6_семестр//CG//MishaIsCringe//ImageConverter.Sdk//Images/bmp.bmp --output=D://Studying//6_семестр//CG//MishaIsCringe//ImageConverter.Sdk//Images/bmp2.bmp --goal-format=.bmp"
     }
   }
 }
