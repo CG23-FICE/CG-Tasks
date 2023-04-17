@@ -145,21 +145,7 @@ namespace MainProject.Models
 
             TransformationMatrix = Multiply(Multiply(Shift, Rotate), Scale);
         }
-
-        //public void ResetTransformation()
-        //{
-        //    ShiftX = 0;
-        //    ShiftY = 0;
-        //    ShiftZ = 0;
-        //    ScaleX = 1;
-        //    ScaleY = 1;
-        //    ScaleY = 1;
-        //    RotateX(-AngleRadX, false);
-        //    RotateY(-AngleRadY, false);
-        //    RotateZ(-AngleRadZ, true);
-        //}
-
-        public Point Apply(Point point)
+        public Point ApplyTransformation(Point point)
         {
             float[] pointArray = { point.X, point.Y, point.Z, 1 };
             float[] transformedPoint = { 0, 0, 0, 0 };
@@ -173,12 +159,12 @@ namespace MainProject.Models
             return new Point(transformedPoint[0], transformedPoint[1], transformedPoint[2]);
         }
 
-        public Triangle Apply(Triangle triangle)
+        public Triangle ApplyTransformation(Triangle triangle)
         {
-            return new Triangle(Apply(triangle.P1), Apply(triangle.P2), Apply(triangle.P3));
+            return new Triangle(ApplyTransformation(triangle.P1), ApplyTransformation(triangle.P2), ApplyTransformation(triangle.P3));
         }
 
-        public Vector Apply(Vector vector)
+        public Vector ApplyTransformation(Vector vector)
         {
             float[] vectorArray = { vector.X, vector.Y, vector.Z };
             float[] transformedVector = { 0, 0, 0 };

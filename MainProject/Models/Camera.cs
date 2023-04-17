@@ -49,11 +49,11 @@ namespace MainProject.Objects
                 for (int y = 0; y < Height; y++)
                 {
                     ImaginaryScreen[x, y] = leftBottomPoint + Direction.Scale(Distance) + rightScreenDirection.Scale(x * horizontalDistanceBetweenPixels) + upScreenDirection.Scale(y * verticalDistanceBetweenPixels);
-                    ImaginaryScreen[x, y] = CameraTransformator.Apply(ImaginaryScreen[x, y]);
+                    ImaginaryScreen[x, y] = CameraTransformator.ApplyTransformation(ImaginaryScreen[x, y]);
                 }
             }
 
-            Position = CameraTransformator.Apply(Position);
+            Position = CameraTransformator.ApplyTransformation(Position);
             return ImaginaryScreen;
         }
     }
