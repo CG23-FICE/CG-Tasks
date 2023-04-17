@@ -1,4 +1,6 @@
-﻿namespace MainProject.Objects
+﻿using MainProject.Models.Basics;
+
+namespace MainProject.Objects
 {
     public class Camera
     {

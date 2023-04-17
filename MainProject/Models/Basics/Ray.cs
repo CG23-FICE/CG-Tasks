@@ -1,6 +1,6 @@
 ﻿using MainProject.Interfaces;
 
-namespace MainProject.Objects
+namespace MainProject.Models.Basics
 {
     public class Ray : IBaseObject
     {
@@ -20,5 +20,12 @@ namespace MainProject.Objects
         }
 
         public Ray() { }
+        public Point GetPointAtDistance(float distance)
+        {
+            return new Point(
+                Origin.X + Direction.X * distance,
+                Origin.Y + Direction.Y * distance,
+                Origin.Z + Direction.Z * distance);
+        }
     }
 }

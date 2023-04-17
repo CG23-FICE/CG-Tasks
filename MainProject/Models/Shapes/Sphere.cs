@@ -1,6 +1,7 @@
 ﻿using MainProject.Interfaces;
+using MainProject.Models.Basics;
 
-namespace MainProject.Objects
+namespace MainProject.Models.Shapes
 {
     public class Sphere : IBaseObject, IIntersectable
     {
@@ -33,8 +34,8 @@ namespace MainProject.Objects
             }
 
 
-            var distance1 = (-b - Math.Sqrt(D)) / (2);
-            var distance2 = (-b + Math.Sqrt(D)) / (2);
+            var distance1 = (-b - Math.Sqrt(D)) / 2;
+            var distance2 = (-b + Math.Sqrt(D)) / 2;
             var distance = (float)Math.Min(distance1, distance2);
 
             if (distance < 0)
