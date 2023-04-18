@@ -1,4 +1,5 @@
-﻿using MainProject.Models.Basics;
+﻿using MainProject.Models;
+using MainProject.Models.Basics;
 
 namespace MainProject.Objects
 {
@@ -12,15 +13,16 @@ namespace MainProject.Objects
         public int Height = 100;
         public int Width = 100;
 
-
+        public Transformator CameraTransformator;
         public Camera() { }
 
-        public Camera(Point position, Normal direction, int fieldOfView, float distance)
+        public Camera(Point position, Normal direction, int fieldOfView, float distance, Transformator? cameraTransformator = null)
         {
             Position = position;
             Direction = direction;
             FieldOfView = fieldOfView;
             Distance = distance;
+            CameraTransformator = cameraTransformator ?? new Transformator();
         }
 
         public Point[,] GetImaginaryScreen()
@@ -47,10 +49,12 @@ namespace MainProject.Objects
                 for (int y = 0; y < Height; y++)
                 {
                     ImaginaryScreen[x, y] = leftBottomPoint + Direction.Scale(Distance) + rightScreenDirection.Scale(x * horizontalDistanceBetweenPixels) + upScreenDirection.Scale(y * verticalDistanceBetweenPixels);
+                    ImaginaryScreen[x, y] = CameraTransformator.ApplyTransformation(ImaginaryScreen[x, y]);
                 }
             }
-            return ImaginaryScreen;
 
+            Position = CameraTransformator.ApplyTransformation(Position);
+            return ImaginaryScreen;
         }
     }
 }
