@@ -5,40 +5,31 @@ using MainProject.Models.Basics;
 using MainProject.Models.Shapes;
 using MainProject.Objects;
 using MainProject;
+using Aspose.CAD;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        Transformator cameraTransformator = new();
-        cameraTransformator.RotateAngleX(45);
-        cameraTransformator.Move(new Vector(0, -0.5f, 0));
-        Point center = new Point(0, 0, 0);
-        Normal direction = new Normal(1, 0, 0);
-
-        Camera camera = new Camera(center, direction, 30, 2, cameraTransformator);
-
-        Sphere sphere1 = new Sphere(new Point(5, -0.2f, 0.5f), 0.3f);
-        Sphere sphere2 = new Sphere(new Point(3, 0, 0), 0.3f);
-        Plane plane1 = new Plane(new Normal(1, 1, 1), new Point(44, 44, 44));
-        Plane plane2 = new Plane(new Normal(1, 0.5f, 0), new Point(0, 0, 0));
-
-        Scene scene = new Scene()
+        // load OBJ in an instance of Image via its Load method
+        using (var image = Image.Load("cow.obj"))
         {
-            LightSource = new Normal(5.0f, 55.0f, 5.0f),
-            Camera = camera
-        };
-        scene.Figures.Add(sphere2);
-        scene.Figures.Add(sphere1);
+            // create an instance of CadRasterizationOptions and set page height & width
+            var rasterizationOptions = new Aspose.CAD.ImageOptions.CadRasterizationOptions()
+            {
+                PageWidth = 1600,
+                PageHeight = 1600
+            };
 
-        RayTracer rayTracer = new RayTracer(scene);
-        ConsoleRenderer.Render(rayTracer.TraceRays());
+            // create an instance of PngOptions
+            var options = new Aspose.CAD.ImageOptions.PngOptions();
 
-        Console.ReadLine();
-        //var imageInfo = ArgumentsReader(args);
-        //var imageReader = ReaderFactory.GetReader(imageInfo.Image);
-        //var imageWriter = WriterFactory.GetWriter(imageInfo.GoalFormat);
-        //imageWriter.Write(imageReader.Read(imageInfo.Image.OpenRead()), imageInfo.OutputDirectoryPath);
+            // set the VectorRasterizationOptions property as CadRasterizationOptions
+            options.VectorRasterizationOptions = rasterizationOptions;
+
+            // export OBJ to PNG
+            image.Save("output.png", options);
+        }
     }
 
     private static ArgumentReaderResponse ArgumentsReader(string[] args)
