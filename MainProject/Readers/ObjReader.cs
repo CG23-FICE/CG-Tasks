@@ -13,7 +13,7 @@ namespace MainProject.Readers
             using StreamReader reader = new StreamReader(path);
             string? line;
             List<Triangle> faces = new List<Triangle>();
-            List<Point> points = new List<Point>();
+            List<Vector> points = new List<Vector>();
 
             while ((line = reader.ReadLine()) != null)
             {
@@ -26,7 +26,7 @@ namespace MainProject.Readers
                         float y = float.Parse(lineArray[2], CultureInfo.InvariantCulture);
                         float z = float.Parse(lineArray[3], CultureInfo.InvariantCulture);
 
-                        Point point = new Point(x, y, z);
+                        Vector point = new Vector(x, y, z);
                         points.Add(point);
 
                         break;

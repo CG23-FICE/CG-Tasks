@@ -1,7 +1,11 @@
 ﻿namespace MainProject.Models.Basics
 {
-    public class Normal : Vector
+    public struct Normal
     {
+        public float X;
+        public float Y;
+        public float Z;
+
         public Normal(Vector vector)
         {
             var norm = vector.Normalize();
@@ -23,6 +27,11 @@
             X = vector.X;
             Y = vector.Y;
             Z = vector.Z;
+        }
+
+        public Vector ToVector()
+        {
+            return new Vector(this.X, this.Y, this.Z);
         }
     }
 }

@@ -24,13 +24,18 @@ namespace MainProject
                     var currentRay = new Ray(Scene.Camera.Position, projectionPlane[i, j]);
 
                     var nearestIntersection = GetNearestIntersection(currentRay, figures);
-
+#if Light
                     if (nearestIntersection.point is not null)
                     {
                         var normal = nearestIntersection.figure!.GetNormalAtPoint(nearestIntersection.point);
 
                         pixels[i, j] = Vector.Dot(normal, Scene.LightSource);
                     }
+#else
+
+                        pixels[i, j] = nearestIntersection.point is not null ? 1.0f : 0.0f;
+                    
+#endif
                 }
             }
             return pixels;
@@ -47,7 +52,7 @@ namespace MainProject
 
                 if (intersectionPoint is null) { continue; }
 
-                var disatanceToPoint = Point.Distance(Scene.Camera.Position, intersectionPoint);
+                var disatanceToPoint = Point.Distance(Scene.Camera.Position, (Point)intersectionPoint);
 
                 if (disatanceToPoint < nearestDistance)
                 {

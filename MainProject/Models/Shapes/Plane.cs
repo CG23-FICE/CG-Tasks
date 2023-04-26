@@ -17,18 +17,18 @@ namespace MainProject.Models.Shapes
         public Point? GetIntersectionWith(Ray ray)
         {
             //throw new NotImplementedException();
-            var vectorProduct = Vector.Dot(Normal, ray.Direction);
+            var vectorProduct = Vector.Dot(Normal.ToVector(), ray.Direction.ToVector());
             if (Math.Abs(vectorProduct) < 1e-6)
             {
                 return null;
             }
 
             Normal difference = new Normal(ray.Origin, Point);
-            var distance = Vector.Dot(difference, Normal) / vectorProduct;
+            var distance = Vector.Dot(difference.ToVector(), Normal.ToVector()) / vectorProduct;
             if (distance < 0)
                 return null;
 
-            return ray.Origin + ray.Direction.Scale(distance);
+            return ray.Origin + ray.Direction.ToVector().Scale(distance);
 
             /*var vectorProduct = Vector.Dot(Normal, ray.Direction);
             if (Math.Abs(vectorProduct) >= 0) //90 degrees or less
@@ -45,7 +45,7 @@ namespace MainProject.Models.Shapes
 
         public Vector GetNormalAtPoint(Point point)
         {
-            return Normal;
+            return Normal.ToVector();
         }
     }
 }

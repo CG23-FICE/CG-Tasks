@@ -2,18 +2,23 @@
 
 namespace MainProject.Models.Basics
 {
-    public class Point : IBaseObject
+    public struct Point
     {
-        public float X { get; set; }
-        public float Y { get; set; }
-        public float Z { get; set; }
+        public float X;
+        public float Y;
+        public float Z; 
         public Point(float x, float y, float z)
         {
             X = x;
             Y = y;
             Z = z;
         }
-        public Point() { }
+        public Point() 
+        {
+            X = 0;
+            Y = 0;
+            Z = 0;
+        }
 
         public static float Distance(Point point1, Point point2)
         {
@@ -31,6 +36,11 @@ namespace MainProject.Models.Basics
         public static Point operator -(Point point, Vector vector)
         {
             return new Point(point.X - vector.X, point.Y - vector.Y, point.Z - vector.Z);
+        }
+
+        public Vector ToVector()
+        {
+            return new Vector(this.X, this.Y, this.Z);
         }
     }
 }

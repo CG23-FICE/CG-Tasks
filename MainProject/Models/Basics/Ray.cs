@@ -27,5 +27,7 @@ namespace MainProject.Models.Basics
                 Origin.Y + Direction.Y * distance,
                 Origin.Z + Direction.Z * distance);
         }
+
+ 
     }
 }

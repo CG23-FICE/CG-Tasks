@@ -27,9 +27,9 @@ namespace MainProject.Objects
 
         public Point[,] GetImaginaryScreen()
         {
-            Vector rightScreenDirection = Vector.Cross(new Vector(0, 0, 1), Direction).Normalize();
+            Vector rightScreenDirection = Vector.Cross(new Vector(0, 0, 1), Direction.ToVector()).Normalize();
 
-            Vector upScreenDirection = Vector.Cross(Direction, rightScreenDirection).Normalize();
+            Vector upScreenDirection = Vector.Cross(Direction.ToVector(), rightScreenDirection).Normalize();
 
             var ImaginaryScreen = new Point[Width, Height];
 
@@ -48,12 +48,12 @@ namespace MainProject.Objects
             {
                 for (int y = 0; y < Height; y++)
                 {
-                    ImaginaryScreen[x, y] = leftBottomPoint + Direction.Scale(Distance) + rightScreenDirection.Scale(x * horizontalDistanceBetweenPixels) + upScreenDirection.Scale(y * verticalDistanceBetweenPixels);
+                    ImaginaryScreen[x, y] = leftBottomPoint + Direction.ToVector().Scale(Distance) + rightScreenDirection.Scale(x * horizontalDistanceBetweenPixels) + upScreenDirection.Scale(y * verticalDistanceBetweenPixels);
                     ImaginaryScreen[x, y] = CameraTransformator.ApplyTransformation(ImaginaryScreen[x, y]);
                 }
             }
-
             Position = CameraTransformator.ApplyTransformation(Position);
+
             return ImaginaryScreen;
         }
     }
