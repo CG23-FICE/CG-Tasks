@@ -1,8 +1,6 @@
-﻿using MainProject.Models.Shapes;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using MainProject.Models.Basics;
+using MainProject.Models.Shapes;
 
 namespace MainProject.Readers
 {
@@ -17,7 +15,9 @@ namespace MainProject.Readers
 
             while ((line = reader.ReadLine()) != null)
             {
-                string[] lineArray = line.Split(' ');
+                if (line == "") { continue; }
+                char[] delimiters = new char[] { ' ', '\t', '\r', '\n' };
+                string[] lineArray = line.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
                 switch (lineArray[0])
                 {
                     // if the line defines a point, parse its x, y, and z coordinates and add them to the points list

@@ -1,16 +1,25 @@
-﻿using MainProject.Factories;
-using MainProject.Models.ImagePluginsModels;
+﻿using MainProject;
 using MainProject.Models;
 using MainProject.Models.Basics;
+using MainProject.Models.ImagePluginsModels;
 using MainProject.Models.Shapes;
 using MainProject.Objects;
-using MainProject;
 using MainProject.Readers;
 //using System.Numerics;
 //using Aspose.CAD;
 
 internal class Program
 {
+    static string _workingDirectory = Environment.CurrentDirectory;
+    static string _pathToKorova = Directory.GetParent(_workingDirectory)!
+        .Parent!
+        .Parent!
+        .Parent!
+        .GetDirectories()
+        .First(x => x.Name == "ImageConverter.Sdk")
+        .GetDirectories()
+        .First(x => x.Name == "Images")
+        .FullName;
     private static void Main(string[] args)
     {
         Transformator transform = new Transformator();
@@ -40,7 +49,7 @@ internal class Program
         transformObj.RotateAngleX(90);
 
         ObjReader objReader = new ObjReader();
-        List<Triangle> Triangles = objReader.Read("D://Studying//6_семестр//CG//MishaIsCringe//ImageConverter.Sdk//Images/cow.obj");
+        List<Triangle> Triangles = objReader.Read(Path.Combine(_pathToKorova, "cow.obj"));
         List<Triangle> TransformedTriangles = Triangles.ToArray().Select(triangle => transformObj.ApplyTransformation(triangle)).ToList();
         foreach (var triangle in TransformedTriangles)
         {

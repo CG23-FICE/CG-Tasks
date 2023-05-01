@@ -1,13 +1,11 @@
-﻿using MainProject.Interfaces;
-
-namespace MainProject.Models.Basics
+﻿namespace MainProject.Models.Basics
 {
-    public struct Vector 
+    public struct Vector
     {
         public float X;
         public float Y;
         public float Z;
-        public Vector() 
+        public Vector()
         {
             X = 0;
             Y = 0;
@@ -41,7 +39,6 @@ namespace MainProject.Models.Basics
         {
             return new Vector(X * ratio, Y * ratio, Z * ratio);
         }
-
 
         public static Vector Cross(Vector left, Vector right)
         {

@@ -1,4 +1,7 @@
-﻿using MainProject.Interfaces;
+﻿#define Light
+#define MT
+
+using MainProject.Interfaces;
 using MainProject.Models.Basics;
 
 namespace MainProject
@@ -16,6 +19,36 @@ namespace MainProject
 
             Point[,] projectionPlane = Scene.Camera.GetImaginaryScreen();
             float[,] pixels = new float[projectionPlane.GetLength(0), projectionPlane.GetLength(1)];
+#if MT
+            Parallel.For(0, projectionPlane.GetLength(0), i =>
+            {
+                for (int j = 0; j < projectionPlane.GetLength(1); j++)
+                {
+                    var currentRay = new Ray(Scene.Camera.Position, projectionPlane[i, j]);
+
+                    var nearestIntersection = GetNearestIntersection(currentRay, figures);
+#if Light
+                    if (nearestIntersection.point is not null)
+                    {
+                        if (IsOnShadow((Point)nearestIntersection.point))
+                        {
+                            pixels[i, j] = 0;
+                        }
+                        else
+                        {
+                            var normal = nearestIntersection.figure!.GetNormalAtPoint((Point)nearestIntersection.point);
+
+                            pixels[i, j] = Vector.Dot(normal, Scene.LightSource.ToVector());
+                        }
+                    }
+#else
+
+                        pixels[i, j] = nearestIntersection.point is not null ? 1.0f : 0.0f;
+                    
+#endif
+                }
+            }); // Parallel.For
+#else
 
             for (int i = 0; i < projectionPlane.GetLength(0); i++)
             {
@@ -27,17 +60,19 @@ namespace MainProject
 #if Light
                     if (nearestIntersection.point is not null)
                     {
-                        var normal = nearestIntersection.figure!.GetNormalAtPoint(nearestIntersection.point);
+                        var normal = nearestIntersection.figure!.GetNormalAtPoint((Point)nearestIntersection.point);
 
-                        pixels[i, j] = Vector.Dot(normal, Scene.LightSource);
+                        pixels[i, j] = Vector.Dot(normal, Scene.LightSource.ToVector());
                     }
 #else
 
                         pixels[i, j] = nearestIntersection.point is not null ? 1.0f : 0.0f;
                     
 #endif
+
                 }
             }
+#endif
             return pixels;
         }
 
@@ -62,6 +97,24 @@ namespace MainProject
                 }
             }
             return (nearestFigure, nearestPoint);
+        }
+
+        private bool IsOnShadow(Point intersectionPoint)
+        {
+            var oppositeDirectionToLigthVector = new Ray(intersectionPoint, new Normal(-Scene.LightSource.X, -Scene.LightSource.Y, -Scene.LightSource.Z));
+
+            var isOnShadow = false;
+            foreach (var figure in Scene.Figures)
+            {
+                var overlapPoint = figure.GetIntersectionWith(oppositeDirectionToLigthVector);
+
+                if (overlapPoint is not null)
+                {
+                    isOnShadow = true;
+                    break;
+                }
+            }
+            return isOnShadow;
         }
     }
 }
