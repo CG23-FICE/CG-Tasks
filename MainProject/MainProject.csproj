@@ -10,14 +10,11 @@
   <ItemGroup>
     <PackageReference Include="Aspose.CAD" Version="23.3.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="StbImageWriteSharp" Version="1.16.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ImageConverter.Sdk\ImageConverter.Sdk.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Writers\" />
   </ItemGroup>
 
   <ItemGroup>

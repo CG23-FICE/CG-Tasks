@@ -10,8 +10,8 @@ namespace MainProject.Objects
         public int FieldOfView { get; set; }
 
         public float Distance { get; set; }
-        public int Height = 100;
-        public int Width = 100;
+        public int Height = 1000;
+        public int Width = 1000;
 
         public Transformator CameraTransformator;
         public Camera() { }

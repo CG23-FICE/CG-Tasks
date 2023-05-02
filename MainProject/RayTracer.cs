@@ -33,7 +33,7 @@ namespace MainProject
                     {
                         var normal = nearestIntersection.figure!.GetNormalAtPoint((Point)nearestIntersection.point);
 
-                        pixels[i, j] = Vector.Dot(normal, Scene.LightSource.ToVector());
+                        pixels[i, j] = Vector.Dot(normal, Scene.LightSource.ToVector())/(normal.Module() * Scene.LightSource.ToVector().Module()); //Vector.Dot(normal, Scene.LightSource.ToVector());
                     }
 #else
 
