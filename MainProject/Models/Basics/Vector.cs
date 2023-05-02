@@ -2,12 +2,17 @@
 
 namespace MainProject.Models.Basics
 {
-    public class Vector : IVector
+    public struct Vector 
     {
-        public float X { get; set; }
-        public float Y { get; set; }
-        public float Z { get; set; }
-        public Vector() { }
+        public float X;
+        public float Y;
+        public float Z;
+        public Vector() 
+        {
+            X = 0;
+            Y = 0;
+            Z = 0;
+        }
         public Vector(float x, float y, float z)
         {
             X = x;
@@ -38,36 +43,41 @@ namespace MainProject.Models.Basics
         }
 
 
-        public static Vector Cross(IVector left, IVector right)
+        public static Vector Cross(Vector left, Vector right)
         {
-            var i = Math.Abs(left.Y * right.Z - left.Z * right.Y);
-            var j = Math.Abs(left.X * right.Z - left.Z * right.X);
-            var k = Math.Abs(left.X * right.Y - left.Y * right.X);
+            var i = left.Y * right.Z - left.Z * right.Y;
+            var j = left.X * right.Z - left.Z * right.X;
+            var k = left.X * right.Y - left.Y * right.X;
 
             return new Vector(i, -j, k);
         }
-        public static float Dot(IVector left, IVector right)
+        public static float Dot(Vector left, Vector right)
         {
             return left.X * right.X + left.Y * right.Y + left.Z * right.Z;
         }
 
-        public IVector Add(IVector vector)
+        public Vector Add(Vector vector)
         {
             return new Vector(X + vector.X, Y + vector.Y, Z + vector.Z);
         }
-
-        public IVector Subtract(IVector vector)
+        public Vector Subtract(Vector vector)
         {
             return new Vector(X - vector.X, Y - vector.Y, Z - vector.Z);
         }
-        public static IVector operator +(Vector a, Vector b)
+
+        public static Vector operator +(Vector a, Vector b)
         {
             return a.Add(b);
         }
 
-        public static IVector operator -(Vector a, Vector b)
+        public static Vector operator -(Vector a, Vector b)
         {
             return a.Subtract(b);
+        }
+
+        public Point ToPoint()
+        {
+            return new Point(this.X, this.Y, this.Z);
         }
     }
 }
