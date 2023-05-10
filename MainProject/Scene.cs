@@ -7,8 +7,8 @@ namespace MainProject
     public class Scene
     {
         public List<IIntersectable> Figures { get; } = new List<IIntersectable>();
-        private Normal _lightSource;
-        public Normal LightSource
+        private Point _lightSource;
+        public Point LightSource
         {
             get
             {
