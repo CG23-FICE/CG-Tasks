@@ -1,5 +1,6 @@
 ﻿#define Light
 #define MT
+#define Shadow
 
 using MainProject.Interfaces;
 using MainProject.Models.Basics;
@@ -31,9 +32,20 @@ namespace MainProject
 #if Light
                     if (nearestIntersection.point is not null)
                     {
+#if Shadow
                         var normal = nearestIntersection.figure!.GetNormalAtPoint((Point)nearestIntersection.point);
 
-                        pixels[i, j] = Vector.Dot(normal, Scene.LightSource.ToVector())/(normal.Module() * Scene.LightSource.ToVector().Module()); //Vector.Dot(normal, Scene.LightSource.ToVector());
+                        float diffuse = Math.Clamp(Vector.Dot(normal, new Vector((Point)nearestIntersection.point, Scene.LightSource).Normalize()), 0, 1); //Vector.Dot(normal, Scene.LightSource.ToVector());
+                        float shadow = IsOnShadow((Point)nearestIntersection.point + normal.Scale(0.1f)) ? 0.5f : 1.0f;
+
+                        pixels[i, j] = diffuse * shadow;
+#else
+                        var normal = nearestIntersection.figure!.GetNormalAtPoint((Point)nearestIntersection.point);
+
+                        pixels[i, j] = Math.Clamp(Vector.Dot(normal, Scene.LightSource.ToVector()),0 , 1); //Vector.Dot(normal, Scene.LightSource.ToVector());
+
+#endif
+
                     }
 #else
 
@@ -91,6 +103,24 @@ namespace MainProject
                 }
             }
             return (nearestFigure, nearestPoint);
+        }
+
+        private bool IsOnShadow(Point intersectionPoint)
+        {
+            var oppositeDirectionToLigthVector = new Ray(intersectionPoint, new Normal(Scene.LightSource.X, Scene.LightSource.Y, Scene.LightSource.Z));
+
+            var isOnShadow = false;
+            foreach (var figure in Scene.Figures)
+            {
+                var overlapPoint = figure.GetIntersectionWith(oppositeDirectionToLigthVector);
+
+                if (overlapPoint is not null)
+                {
+                    isOnShadow = true;
+                    break;
+                }
+            }
+            return isOnShadow;
         }
     }
 }

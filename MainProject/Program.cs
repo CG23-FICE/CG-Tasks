@@ -13,6 +13,16 @@ using System.IO;
 
 internal class Program
 {
+    static string _workingDirectory = Environment.CurrentDirectory;
+    static string _pathToKorova = Directory.GetParent(_workingDirectory)!
+        .Parent!
+        .Parent!
+        .Parent!
+        .GetDirectories()
+        .First(x => x.Name == "ImageConverter.Sdk")
+        .GetDirectories()
+        .First(x => x.Name == "Images")
+        .FullName;
     private static void Main(string[] args)
     {
         Transformator transform = new Transformator();
@@ -24,7 +34,8 @@ internal class Program
 
         Camera camera = new Camera(center, direction, 30, 1, transform);
 
-        //Sphere sphere1 = new Sphere(new Point(5, -0.2f, 0.5f), 0.3f);
+        Sphere sphere1 = new Sphere(new Point(5, -0.2f, 0.5f), 0.3f);
+        Plane plane = new Plane(new Normal(0, 0, 1), new Point(0, 0, -0.5f));
         //Sphere sphere2 = new Sphere(new Point(3, 0, 0), 0.3f);
         //Plane plane1 = new Plane(new Normal(1, 1, 1), new Point(44, 44, 44));
         //Plane plane2 = new Plane(new Normal(1, 0.5f, 0), new Point(0, 0, 0));
@@ -32,9 +43,11 @@ internal class Program
 
         Scene scene = new Scene()
         {
-            LightSource = new Normal(5.0f, 55.0f, 5.0f),
+            LightSource = new Point(-2.0f, 1.0f, 1.5f),
             Camera = camera
         };
+
+        scene.Figures.Add(plane);
 
         Transformator transformObj = new Transformator();
         //transformObj.RotateAngleY(180);
@@ -42,7 +55,7 @@ internal class Program
         transformObj.RotateAngleX(90);
 
         ObjReader objReader = new ObjReader();
-        List<Triangle> Triangles = objReader.Read("D://Studying//6_семестр//CG//MishaIsCringe//ImageConverter.Sdk//Images/cow.obj");
+        List<Triangle> Triangles = objReader.Read(Path.Combine(_pathToKorova, "cow.obj"));
         List<Triangle> TransformedTriangles = Triangles.ToArray().Select(triangle => transformObj.ApplyTransformation(triangle)).ToList();
         foreach (var triangle in TransformedTriangles)
         {
@@ -73,7 +86,7 @@ internal class Program
             }
         }
 
-        using FileStream stream = new FileStream("D://Studying//6_семестр//CG//MishaIsCringe//ImageConverter.Sdk//Images/newCow2.png", FileMode.Create);
+        using FileStream stream = new FileStream(Path.Combine(_pathToKorova, "NewCowShadow.png"), FileMode.Create);
         var imageWriter = new ImageWriter();
         //imageWriter.WriteJpg(binary, width, height, ColorComponents.RedGreenBlue, stream, 24);
         imageWriter.WritePng(binary, width, height, ColorComponents.RedGreenBlue, stream);
