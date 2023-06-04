@@ -5,6 +5,8 @@ using MainProject.Models.ImagePluginsModels;
 using MainProject.Models.Shapes;
 using MainProject.Objects;
 using MainProject.Readers;
+using StbImageWriteSharp;
+using System.IO;
 //using System.Numerics;
 //using Aspose.CAD;
 
@@ -23,15 +25,16 @@ internal class Program
     private static void Main(string[] args)
     {
         Transformator transform = new Transformator();
-        transform.MoveY(-2);
+        transform.MoveX(-2);
         //transform.MoveY(1);
 
         Point center = new Point(0, 0, 0);
-        Normal direction = new Normal(0, 1, 0);
+        Normal direction = new Normal(1, 0, 0);
 
         Camera camera = new Camera(center, direction, 30, 1, transform);
 
-        //Sphere sphere1 = new Sphere(new Point(5, -0.2f, 0.5f), 0.3f);
+        Sphere sphere1 = new Sphere(new Point(5, -0.2f, 0.5f), 0.3f);
+        Plane plane = new Plane(new Normal(0, 0, 1), new Point(0, 0, -0.5f));
         //Sphere sphere2 = new Sphere(new Point(3, 0, 0), 0.3f);
         //Plane plane1 = new Plane(new Normal(1, 1, 1), new Point(44, 44, 44));
         //Plane plane2 = new Plane(new Normal(1, 0.5f, 0), new Point(0, 0, 0));
@@ -39,12 +42,14 @@ internal class Program
 
         Scene scene = new Scene()
         {
-            LightSource = new Normal(5.0f, 55.0f, 5.0f),
+            LightSource = new Point(-2.0f, 1.0f, 1.5f),
             Camera = camera
         };
 
+        scene.Figures.Add(plane);
+
         Transformator transformObj = new Transformator();
-        transformObj.RotateAngleY(90);
+        //transformObj.RotateAngleY(180);
         transformObj.RotateAngleZ(90);
         transformObj.RotateAngleX(90);
 
@@ -59,34 +64,37 @@ internal class Program
         //Triangle triangle = new Triangle(new Vector(0, 1, 0), new Vector(0, 0, 1), new Vector(0.5f, 0.5f, 0.5f));
         //scene.Figures.Add(triangle);
 
-
-        //scene.Figures.Add(sphere1);
-        //scene.Figures.Add(sphere2);
-        //scene.Figures.Add(plane1);
-
         RayTracer rayTracer = new RayTracer(scene);
-        ConsoleRenderer.Render(rayTracer.TraceRays());
+
+        var pixels = rayTracer.TraceRays();
+
+        int width = pixels.GetLength(1);
+        int height = pixels.GetLength(0);
+
+        byte[] binary = new byte[width * height * 3];
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                byte greyscale = (byte)(pixels[y, x] * 255.0f);
+                const int channels = 3;
+                binary[y * width * channels + x * channels + 0] = greyscale;
+                binary[y * width * channels + x * channels + 1] = greyscale;
+                binary[y * width * channels + x * channels + 2] = greyscale;
+            }
+        }
+
+        using FileStream stream = new FileStream(Path.Combine(_pathToKorova, "NewCowShadow.png"), FileMode.Create);
+        var imageWriter = new ImageWriter();
+        //imageWriter.WriteJpg(binary, width, height, ColorComponents.RedGreenBlue, stream, 24);
+        imageWriter.WritePng(binary, width, height, ColorComponents.RedGreenBlue, stream);
+        stream.Flush();
+        Console.WriteLine("Finish");
+        //ConsoleRenderer.Render(pixels);
+
 
         Console.ReadLine();
-        //// load OBJ in an instance of Image via its Load method
-        //using (var image = Image.Load("cow.obj"))
-        //{
-        //    // create an instance of CadRasterizationOptions and set page height & width
-        //    var rasterizationOptions = new Aspose.CAD.ImageOptions.CadRasterizationOptions()
-        //    {
-        //        PageWidth = 1600,
-        //        PageHeight = 1600
-        //    };
-
-        //    // create an instance of PngOptions
-        //    var options = new Aspose.CAD.ImageOptions.PngOptions();
-
-        //    // set the VectorRasterizationOptions property as CadRasterizationOptions
-        //    options.VectorRasterizationOptions = rasterizationOptions;
-
-        //    // export OBJ to PNG
-        //    image.Save("output.png", options);
-        //}
     }
 
     private static ArgumentReaderResponse ArgumentsReader(string[] args)
